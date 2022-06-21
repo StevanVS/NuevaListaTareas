@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a319e6b99d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Organizador de Tareas</title>
+    
+</head>
+
+<body>
+    <img class="wallpaper" src="wallpapers/wallhaven-ym55x7.jpg">
+    <nav>
+        <h1 class="logo">Organizador</h1>
+        <ul class="nav-links" data-nav-links>
+            <li class="active" link-target="todo">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Listas</span>
+            </li>
+            <li link-target="calendar">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Calendario</span>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="todo page">
+            <div class="lists-container">
+    
+                <ul class="default-lists">
+                    <li class="list default-list">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Para Hoy</span>
+                    </li>
+                    <li class="list default-list">
+                        <i class="fa-solid fa-tags"></i>
+                        <span>Etiquetas</span>
+                    </li>
+                </ul>
+    
+                <h3 class="lists-header">Mis Listas</h3>
+    
+                <ul class="lists" data-lists>
+                </ul>
+    
+                <form action="" class="new-list-container" data-new-list-form>
+                    <input type="text" class="new-list-input" placeholder="+ Nueva Lista" data-new-list-input>
+                </form>
+    
+            </div>
+            <div class="tasks-container" data-tasks-display-container>
+                <div class="header">
+                    <div class="toggle-and-title">
+                        <button class="toggle-lists"><i class="fa-solid fa-angles-right"></i></button>
+                        <h2 class="list-title" data-list-title></h2>
+                    </div>
+                    <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
+    
+                    <dialog class="new-task-dialog" data-new-task-dialog>
+    
+                        <form class="new-task-form" method="dialog" data-new-task-form>
+                            <div class="inputs-container">
+                                <div>
+                                    <h4 class="input-title">Titulo</h4>
+                                    <input type="text" placeholder="Nombre" data-new-task-title-input>
+                                </div>
+                                <div class="inputs-date-container">
+                                    <div>
+                                        <h4 class="input-title">Fecha de Inicio</h4>
+                                        <input type="date" data-new-task-start-input>
+                                    </div>
+                                    <div>
+                                        <h4 class="input-title">Fecha Final</h4>
+                                        <input type="date" data-new-task-end-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btns-container">
+                                <button type="submit">Aceptar</button>
+                                <button type="reset">Cancelar</button>
+                            </div>
+                        </form>
+    
+                    </dialog>
+                </div>
+                <ul class="tasks" data-tasks>
+                </ul>
+            </div>
+        </div>
+
+        <div class="calendar page">
+            <div id='calendar'></div>
+        </div>
+        
+    </main>
+
+    <template id="list-template">
+        <li class="list">
+            <span class="list-name"></span>
+            <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i> </button>
+        </li>
+    </template>
+
+    <template id="task-template">
+        <li class="task">
+            <input type="checkbox" data-task-checkbox>
+            <div class="task-content">
+                <span class="task-title" data-task-title></span>
+                <div class="task-date-container">
+                    <span class="task-start" data-task-start><b>Inicio: </b></span>
+                    <span class="task-end" data-task-end><b>Fin: </b></span>
+                </div>
+            </div>
+            <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        </li>
+    </template>
+
+    <script src="./js/todo.js"></script>
+    <script src="./js/newTaskDialog.js"></script>
+    <script src="./js/calendar.js"></script>
+    <script src="js/controlPages.js"></script>
+
+</body>
+
+</html>
