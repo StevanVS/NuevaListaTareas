@@ -9,6 +9,7 @@ allLinks.forEach(link => {
         pageTargetElement.style.display = 'flex';
         if (link.getAttribute('link-target') === 'calendar') {
             calendar.render();
+            
         }
     });
 });

@@ -97,20 +97,30 @@ nav {
 }
 
 .calendar {
-    background-color: #fffa;
-    background-color: var(--bg-secondary-color);
-    padding-top: calc(var(--min-height-nav) + 1em);
-    padding-left: 3em;
-    padding-right: 3em;
-    display: none;
+    background-color: #fff;
+    /* background-color: var(--bg-secondary-color); */
+    /* padding-top: calc(var(--min-height-nav) + 1em);
+    padding-left: 6em;
+    padding-right: 6em; */
+    display: flex;
 }
 
 #calendar {
     flex: auto;
+    /* background-color: #fff; */
+    margin: 1em 5em;
 }
+
+/* .fc .fc-toolbar.fc-header-toolbar {
+    
+    margin: 0;
+    padding-bottom: 1.5em;
+} */
 
 .todo {
     display: flex;
+    /* display: none; */
+
 }
 
 .lists-container {
