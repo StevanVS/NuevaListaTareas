@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Organizador de Tareas</title>
-    
+
 </head>
 
 <body>
@@ -33,27 +33,35 @@
     <main>
         <div class="todo page">
             <div class="lists-container">
-    
-                <ul class="default-lists">
-                    <li class="list default-list">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        <span>Para Hoy</span>
+
+                <ul class="">
+                    <li id="all-tasks-list" class="list">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Todas
                     </li>
-                    <li class="list default-list">
+                    <li id="today-list" class="list">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Para Hoy
+                    </li>
+                    <li id="tags-list" class="list">
                         <i class="fa-solid fa-tags"></i>
-                        <span>Etiquetas</span>
+                        Etiquetas
+                    </li>
+                    <li id="complete-tasks-list" class="list">
+                        <i class="fa-solid fa-square-check"></i>
+                        Completadas
                     </li>
                 </ul>
-    
+
                 <h3 class="lists-header">Mis Listas</h3>
-    
+
                 <ul class="lists" data-lists>
                 </ul>
-    
+
                 <form action="" class="new-list-container" data-new-list-form>
                     <input type="text" class="new-list-input" placeholder="+ Nueva Lista" data-new-list-input>
                 </form>
-    
+
             </div>
             <div class="tasks-container" data-tasks-display-container>
                 <div class="header">
@@ -62,9 +70,9 @@
                         <h2 class="list-title" data-list-title></h2>
                     </div>
                     <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
-    
+
                     <dialog class="new-task-dialog" data-new-task-dialog>
-    
+
                         <form class="new-task-form" method="dialog" data-new-task-form>
                             <div class="inputs-container">
                                 <div>
@@ -87,7 +95,7 @@
                                 <button type="reset">Cancelar</button>
                             </div>
                         </form>
-    
+
                     </dialog>
                 </div>
                 <ul class="tasks" data-tasks>
@@ -98,7 +106,7 @@
         <div class="calendar page">
             <div id='calendar'></div>
         </div>
-        
+
     </main>
 
     <template id="list-template">
@@ -126,6 +134,9 @@
     <script src="./js/todo.js"></script>
     <script src="./js/newTaskDialog.js"></script>
     <script src="./js/controlPages.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src="./js/tooltips.js"></script>
 
 </body>
 

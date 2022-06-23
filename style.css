@@ -5,7 +5,7 @@
     --bg-active-link-color: #0007;
     --bg-active-list-color: #fffa;
     --text-primary-color: #eee;
-    --text-secondary-color: #111;
+    --text-secondary-color: #222;
     --placeholder-color: #757575;
     --min-height-nav: 3.5em;
 }
@@ -143,7 +143,9 @@ nav {
 }
 
 .lists-header {
-    margin: 1em .5em;
+    padding: .5em 0;
+    margin: .5em .5em;
+    border-bottom: var(--text-secondary-color) solid .1em;
 }
 
 .list .list-name {
@@ -169,6 +171,7 @@ nav {
     border: none;
     font-size: 1em;
     outline: none;
+    /* padding: 0 .5em; */
     border-bottom: var(--placeholder-color) solid .1em;
     width: 85%;
 }

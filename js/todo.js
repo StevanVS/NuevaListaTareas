@@ -40,16 +40,21 @@ tasksContainer.addEventListener('click', e => {
     if (elementTag === 'input') {
         const selectedTask = getSelectedTask(e);
         selectedTask.complete = e.target.checked;
-        calendar.getEventById(e.target.getAttribute('taskid')).setExtendedProp('complete', e.target.checked);
+
+        if (calendar.getEventById(e.target.getAttribute('taskid'))) {
+            calendar.getEventById(e.target.getAttribute('taskid')).setExtendedProp('complete', e.target.checked);
+        }
+
         save();
         return;
     }
     if (elementTag === 'button' || elementTag === 'i') {
         const selectedList = lists.find(list => list.id === selectedListId);
         selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.getAttribute('taskid'));
-        
-        calendar.getEventById(e.target.getAttribute('taskid')).remove();
 
+        if (calendar.getEventById(e.target.getAttribute('taskid'))) {
+            calendar.getEventById(e.target.getAttribute('taskid')).remove();
+        }
         saveAndRender();
         return;
     }
@@ -72,13 +77,11 @@ newTaskForm.addEventListener('submit', e => {
     console.log(newTaskStartInput.value);
 
     const taskName = newTaskTitleInput.value;
-    let taskStart = new Date(newTaskStartInput.value);
-    let taskEnd = new Date(newTaskEndInput.value);
+    const taskStart = newTaskStartInput.value;
+    const taskEnd = newTaskEndInput.value;
 
     // VALIDAR SIN FECHA FINAL SI NO HAY FECHA DE INICIO
     if (taskName == null || taskName === '') return;
-    taskStart = !isNaN(taskStart.valueOf()) ? taskStart : null;
-    taskEnd = !isNaN(taskEnd.valueOf()) ? taskEnd : null;
 
     const task = createTask(taskName, taskStart, taskEnd);
 
@@ -104,7 +107,6 @@ function createTask(name, start, end) {
         title: name,
         start: start,
         end: end,
-        allDay: true,
         complete: false
     };
 }
@@ -140,7 +142,7 @@ function render() {
         renderTasks(selectedList);
     }
 
-    
+
 }
 
 function renderTasks(selectedList) {
@@ -161,7 +163,8 @@ function renderTasks(selectedList) {
 
         const taskStartElement = taskElement.querySelector('[data-task-start]');
         if (task.start) {
-            taskStartElement.innerHTML = `<b>Fecha de Inicio: </b>
+            // taskStartElement.innerHTML = `<b>Fecha de Inicio: </b>
+            taskStartElement.innerHTML = `<b>Inicio: </b>
                 ${getFormattedDate(task.start)}`;
         } else {
             taskStartElement.style.display = 'none';
@@ -169,7 +172,8 @@ function renderTasks(selectedList) {
 
         const taskEndElement = taskElement.querySelector('[data-task-end]');
         if (task.end) {
-            taskEndElement.innerHTML = `<b>Fecha Final: </b>
+            // taskEndElement.innerHTML = `<b>Fecha Final: </b>
+            taskEndElement.innerHTML = `<b>Final: </b>
             ${getFormattedDate(task.end)}`;
         } else {
             taskEndElement.style.display = 'none';
@@ -184,10 +188,28 @@ function renderTasks(selectedList) {
 }
 
 function getFormattedDate(date) {
-    const dateObject = new Date(date)
+    const taskDate = new Date(date + 'T00:00:00');
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (taskDate.getTime() === today.getTime()) {
+        return 'Hoy';
+    } else if (taskDate.getTime() === tomorrow.getTime()) {
+        return 'Mañana';
+    } else if (taskDate.getTime() === yesterday.getTime()) {
+        return 'Ayer';
+    }
+
     // weekday: 'long',
-    let options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return dateObject.toLocaleString('es-EC', options);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return taskDate.toLocaleString('es-EC', options);
 }
 
 function renderLists() {
