@@ -235,6 +235,7 @@ dialog {
     flex-direction: column;
     gap: 1em;
     padding: 1.5em 1.5em 1em 1.5em;
+    overflow: hidden;
 }
 
 .new-task-form .inputs-container {
@@ -263,10 +264,11 @@ dialog {
 
 .inputs-date-container div {
     flex: 1;
+    transition: transform 3s ease-in-out;
+    /* transform: translate(100%) */
 }
 
 .new-task-form .btns-container {
-
     display: flex;
     justify-content: end;
     gap: .4em;
