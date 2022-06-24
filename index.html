@@ -8,6 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a319e6b99d.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Organizador de Tareas</title>
@@ -79,16 +83,11 @@
                                     <h4 class="input-title">Titulo</h4>
                                     <input type="text" placeholder="Nombre" data-new-task-title-input>
                                 </div>
-                                <div class="inputs-date-container">
-                                    <div>
-                                        <h4 class="input-title">Fecha de Inicio</h4>
-                                        <input type="date" data-new-task-start-input>
-                                    </div>
-                                    <div>
-                                        <h4 class="input-title">Fecha Final</h4>
-                                        <input type="date" data-new-task-end-input>
-                                    </div>
+                                <div>
+                                    <h4 class="input-title">Fecha de Inicio</h4>
+                                    <input type="date" data-new-task-date-input>
                                 </div>
+
                             </div>
                             <div class="btns-container">
                                 <button type="submit">Aceptar</button>
@@ -120,22 +119,22 @@
         <li class="task">
             <input type="checkbox" data-task-checkbox>
             <div class="task-content">
-                <span class="task-title" data-task-title></span>
+                <div class="task-title" data-task-title></div>
                 <div class="task-date-container">
-                    <span class="task-start" data-task-start><b>Inicio: </b></span>
-                    <span class="task-end" data-task-end><b>Fin: </b></span>
+                    <b>Fecha: </b><span class="task-date" data-task-date></div>
                 </div>
+                
             </div>
             <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
         </li>
     </template>
 
     <script src="./js/calendar.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script> -->
+    <script src="./js/toasts.js"></script>
     <script src="./js/todo.js"></script>
     <script src="./js/newTaskDialog.js"></script>
     <script src="./js/controlPages.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
     <script src="./js/tooltips.js"></script>
 
 </body>

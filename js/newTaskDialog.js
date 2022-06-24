@@ -7,27 +7,13 @@ newTaskBtn.addEventListener('click', e => {
 
 newTaskDialog.addEventListener('click', e => {
     if (e.target.tagName.toLowerCase() === 'dialog') {
-        closeDialog();
+        newTaskDialog.close();
     }
 });
 
 newTaskForm.addEventListener('click', e => {
     const elementTag = e.target.tagName.toLowerCase();
     if (elementTag === 'button') {
-        closeDialog();
+        newTaskDialog.close();
     }
 });
-
-newTaskStartInput.addEventListener('input', e => {
-    newTaskEndInput.parentElement.style.display = 'block';
-});
-
-function closeDialog() {
-    newTaskDialog.close();
-    newTaskEndInput.parentElement.style.display = 'none';
-}
-
-newTaskEndInput.parentElement.style.display = 'none';
-
-
-// newTaskDialog.showModal();

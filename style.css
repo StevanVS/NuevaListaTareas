@@ -17,6 +17,7 @@
 }
 
 body {
+    background-color: #777;
     min-height: 100vh;
     overflow: hidden;
 }
@@ -225,7 +226,7 @@ dialog {
     padding: 0;
     border: none;
     margin: 2em auto;
-    width: 70%;
+    width: 50%;
     position: fixed;
     border-radius: 1em;
 }
@@ -254,18 +255,6 @@ dialog {
     padding: .5em;
     border: var(--placeholder-color) solid .2em;
     border-radius: 1em;
-}
-
-.inputs-date-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-}
-
-.inputs-date-container div {
-    flex: 1;
-    transition: transform 3s ease-in-out;
-    /* transform: translate(100%) */
 }
 
 .new-task-form .btns-container {
@@ -303,6 +292,4 @@ dialog {
 .task .task-date-container {
     font-size: .8em;
     margin-top: .3em;
-    display: flex;
-    gap: 1em;
 }

@@ -8,8 +8,7 @@ const tasksContainer = document.querySelector('[data-tasks]');
 const taskTemplate = document.querySelector('#task-template');
 const newTaskForm = document.querySelector('[data-new-task-form]');
 const newTaskTitleInput = document.querySelector('[data-new-task-title-input]');
-const newTaskStartInput = document.querySelector('[data-new-task-start-input]');
-const newTaskEndInput = document.querySelector('[data-new-task-end-input]');
+const newTaskDateInput = document.querySelector('[data-new-task-date-input]');
 
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
@@ -49,6 +48,9 @@ tasksContainer.addEventListener('click', e => {
         return;
     }
     if (elementTag === 'button' || elementTag === 'i') {
+
+        // confirmDialog('Esta seguro de elimar esta tarea?');
+
         const selectedList = lists.find(list => list.id === selectedListId);
         selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.getAttribute('taskid'));
 
@@ -73,25 +75,21 @@ newListForm.addEventListener('submit', e => {
 
 newTaskForm.addEventListener('submit', e => {
     e.preventDefault();
-
-    console.log(newTaskStartInput.value);
-
     const taskName = newTaskTitleInput.value;
-    const taskStart = newTaskStartInput.value;
-    const taskEnd = newTaskEndInput.value;
+    const taskDate = newTaskDateInput.value;
 
-    // VALIDAR SIN FECHA FINAL SI NO HAY FECHA DE INICIO
     if (taskName == null || taskName === '') return;
 
-    const task = createTask(taskName, taskStart, taskEnd);
+    const task = createTask(taskName, taskDate);
 
     newTaskTitleInput.value = null;
-    newTaskStartInput.value = null;
-    newTaskEndInput.value = null;
+    newTaskDateInput.value = null;
 
     const selectedList = lists.find(list => list.id === selectedListId);
     selectedList.tasks.push(task);
     calendar.addEvent(task);
+
+    selectedList.tasks.sort((a, b) => new Date(a.start) - new Date(b.start));
 
     saveAndRender();
 });
@@ -101,12 +99,11 @@ function createList(name) {
     return { id: 'list-' + Date.now().toString(), name: name, tasks: [] };
 }
 
-function createTask(name, start, end) {
+function createTask(name, date) {
     return {
         id: 'task-' + Date.now().toString(),
         title: name,
-        start: start,
-        end: end,
+        start: date,
         complete: false
     };
 }
@@ -141,8 +138,6 @@ function render() {
         clearElement(tasksContainer);
         renderTasks(selectedList);
     }
-
-
 }
 
 function renderTasks(selectedList) {
@@ -161,26 +156,14 @@ function renderTasks(selectedList) {
         const taskTitleElement = taskElement.querySelector('[data-task-title]');
         taskTitleElement.innerText = task.title;
 
-        const taskStartElement = taskElement.querySelector('[data-task-start]');
+        const taskStartElement = taskElement.querySelector('[data-task-date]');
         if (task.start) {
-            // taskStartElement.innerHTML = `<b>Fecha de Inicio: </b>
-            taskStartElement.innerHTML = `<b>Inicio: </b>
-                ${getFormattedDate(task.start)}`;
+            taskStartElement.innerText = getFormattedDate(task.start);
+            if (isTaskOverdue(task.start)) {
+                taskStartElement.style.color = '#d00';
+            }
         } else {
             taskStartElement.style.display = 'none';
-        }
-
-        const taskEndElement = taskElement.querySelector('[data-task-end]');
-        if (task.end) {
-            // taskEndElement.innerHTML = `<b>Fecha Final: </b>
-            taskEndElement.innerHTML = `<b>Final: </b>
-            ${getFormattedDate(task.end)}`;
-        } else {
-            taskEndElement.style.display = 'none';
-        }
-
-        if (!task.start && !task.end) {
-            taskStartElement.parentElement.remove();
         }
 
         tasksContainer.appendChild(taskElement);
@@ -206,10 +189,20 @@ function getFormattedDate(date) {
     } else if (taskDate.getTime() === yesterday.getTime()) {
         return 'Ayer';
     }
-
     // weekday: 'long',
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return taskDate.toLocaleString('es-EC', options);
+}
+
+function isTaskOverdue(date) {
+    const taskDate = new Date(date + 'T00:00:00');
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (taskDate < today) return true;
+
+    return false;
 }
 
 function renderLists() {
