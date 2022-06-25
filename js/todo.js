@@ -37,14 +37,17 @@ listsContainer.addEventListener('click', e => {
 tasksContainer.addEventListener('click', e => {
     const elementTag = e.target.tagName.toLowerCase();
     if (elementTag === 'input') {
-        const selectedTask = getSelectedTask(e);
+
+        const selectedList = lists.find(list => list.id === selectedListId);
+        const selectedTask = selectedList.tasks.find(task => task.id === e.target.getAttribute('taskid'));
+
         selectedTask.complete = e.target.checked;
 
         if (calendar.getEventById(e.target.getAttribute('taskid'))) {
             calendar.getEventById(e.target.getAttribute('taskid')).setExtendedProp('complete', e.target.checked);
         }
 
-        save();
+        saveAndRender();
         return;
     }
     if (elementTag === 'button' || elementTag === 'i') {
@@ -61,6 +64,7 @@ tasksContainer.addEventListener('click', e => {
         return;
     }
 });
+
 
 newListForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -89,8 +93,6 @@ newTaskForm.addEventListener('submit', e => {
     selectedList.tasks.push(task);
     calendar.addEvent(task);
 
-    selectedList.tasks.sort((a, b) => new Date(a.start) - new Date(b.start));
-
     saveAndRender();
 });
 
@@ -106,11 +108,6 @@ function createTask(name, date) {
         start: date,
         complete: false
     };
-}
-
-function getSelectedTask(event) {
-    const selectedList = lists.find(list => list.id === selectedListId);
-    return selectedList.tasks.find(task => task.id === event.target.getAttribute('taskid'));
 }
 
 function saveAndRender() {
@@ -133,11 +130,16 @@ function render() {
     if (selectedList == null) {
         tasksDisplayContainer.style.display = 'none';
     } else {
+        sortTasks(selectedList);
         tasksDisplayContainer.style.display = '';
         listTitleElement.innerText = selectedList.name;
         clearElement(tasksContainer);
         renderTasks(selectedList);
     }
+}
+
+function sortTasks(selectedList) {
+    selectedList.tasks.sort((a, b) => a.complete - b.complete || new Date(a.start) - new Date(b.start));
 }
 
 function renderTasks(selectedList) {
@@ -156,14 +158,14 @@ function renderTasks(selectedList) {
         const taskTitleElement = taskElement.querySelector('[data-task-title]');
         taskTitleElement.innerText = task.title;
 
-        const taskStartElement = taskElement.querySelector('[data-task-date]');
+        const taskDateElement = taskElement.querySelector('[data-task-date]');
         if (task.start) {
-            taskStartElement.innerText = getFormattedDate(task.start);
+            taskDateElement.innerText = getFormattedDate(task.start);
             if (isTaskOverdue(task.start)) {
-                taskStartElement.style.color = '#d00';
+                taskDateElement.style.color = '#d00';
             }
         } else {
-            taskStartElement.style.display = 'none';
+            taskDateElement.parentElement.style.display = 'none';
         }
 
         tasksContainer.appendChild(taskElement);

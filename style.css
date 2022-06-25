@@ -6,7 +6,7 @@
     --bg-active-list-color: #fffa;
     --text-primary-color: #eee;
     --text-secondary-color: #222;
-    --placeholder-color: #757575;
+    --placeholder-color: #383838;
     --min-height-nav: 3.5em;
 }
 
@@ -39,6 +39,11 @@ button {
     border: none;
     padding: .2em .3em;
     border-radius: 1rem;
+}
+
+::placeholder {
+    color: var(--placeholder-color);
+    opacity: 1;
 }
 
 nav {
@@ -146,7 +151,7 @@ nav {
 .lists-header {
     padding: .5em 0;
     margin: .5em .5em;
-    border-bottom: var(--text-secondary-color) solid .1em;
+    border-top: var(--text-secondary-color) solid .1em;
 }
 
 .list .list-name {
@@ -176,6 +181,7 @@ nav {
     border-bottom: var(--placeholder-color) solid .1em;
     width: 85%;
 }
+
 
 .tasks-container {
     flex-grow: 1;
@@ -271,13 +277,33 @@ dialog {
 }
 
 .task {
+    position: relative;
     background-color: #fffa;
     gap: .8em;
     align-items: center;
 }
 
-.task input {
+.task input[type="checkbox"] {
+    appearance: none;
     cursor: pointer;
+    height: 1.5em;
+    width: 1.5em;
+    border: 0.15em solid var(--text-secondary-color);
+    border-radius: .2em;
+    display: grid;
+    place-content: center;
+}
+
+.tasks input[type="checkbox"]::before {
+    content: "";
+    width: .9em;
+    height: .9em;
+    background-color: #00496f;
+    display: none;
+}
+
+.tasks input[type="checkbox"]:checked:before {
+    display: block;
 }
 
 .task .task-content {
