@@ -3,11 +3,13 @@
     --bg-primary-color: #003049;
     --bg-secondary-color: #fdf0d5;
     --bg-active-link-color: #0007;
+    --bg-active-link-color-light: #0000003d;
     --bg-active-list-color: #fffa;
     --text-primary-color: #eee;
     --text-secondary-color: #222;
     --placeholder-color: #383838;
     --min-height-nav: 3.5em;
+    --transition: .3s ease;
 }
 
 * {
@@ -57,6 +59,23 @@ nav {
     z-index: 10;
 }
 
+.btn__menu{
+    color: var(--text-primary-color);
+    font-size: 1.2em;
+}
+
+.btn__menu__container{
+    border-radius: 10px;
+    padding: .5em;
+    margin: 0 .5em 0 1em;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn__menu__container:hover{
+    background-color: var(--bg-active-link-color-light);
+}
+
 .logo {
     color: var(--text-primary-color);
     padding: 0 .8em;
@@ -74,6 +93,11 @@ nav {
     padding: .5em 1em;
     color: var(--text-primary-color);
     cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-links li:hover{
+    background-color: var(--bg-active-link-color-light);
 }
 
 .nav-links a {
@@ -130,10 +154,19 @@ nav {
 }
 
 .lists-container {
+    position: absolute;
     background-color: var(--bg-secondary-color);
     max-width: 25%;
+    min-width: 14em;
+    height: 100%;
     padding: 1em;
     overflow: auto;
+    transition: var(--transition);
+    z-index: 50;
+}
+
+.lists-container.active{
+    transform: translate(-100%);
 }
 
 .list {
@@ -184,13 +217,28 @@ nav {
 
 
 .tasks-container {
+    background-color: #fff2;
+    width: 100%;
+    margin-left: 14em;
+    transition: var(--transition);
+}
+
+.tasks-container.active{
+    margin: 0;
+}
+
+.tasks-container__center{
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 1em;
     padding: 1em;
     overflow: auto;
-    background-color: #fff2;
+    width: 90%;
+    max-width: 1050px;
+    height: 100vh;
+    margin: 0 auto;
+    transition: var(--transition);
 }
 
 .header {

@@ -21,6 +21,9 @@
 <body>
     <img class="wallpaper" src="wallpapers/wallhaven-ym55x7.jpg">
     <nav>
+        <div class="btn__menu__container">
+            <i class="fas fa-bars btn__menu"></i>
+        </div>
         <h1 class="logo">Organizador</h1>
         <ul class="nav-links" data-nav-links>
             <li class="active" link-target="todo">
@@ -68,37 +71,40 @@
 
             </div>
             <div class="tasks-container" data-tasks-display-container>
-                <div class="header">
-                    <div class="toggle-and-title">
-                        <button class="toggle-lists"><i class="fa-solid fa-angles-right"></i></button>
-                        <h2 class="list-title" data-list-title></h2>
+                <div class="tasks-container__center">
+                    <div class="header">
+                        <div class="toggle-and-title">
+                            <button class="toggle-lists"><i class="fa-solid fa-angles-right"></i></button>
+                            <h2 class="list-title" data-list-title></h2>
+                        </div>
+                        <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
+    
+                        <dialog class="new-task-dialog" data-new-task-dialog>
+    
+                            <form class="new-task-form" method="dialog" data-new-task-form>
+                                <div class="inputs-container">
+                                    <div>
+                                        <h4 class="input-title">Titulo</h4>
+                                        <input type="text" placeholder="Nombre" data-new-task-title-input>
+                                    </div>
+                                    <div>
+                                        <h4 class="input-title">Fecha de Inicio</h4>
+                                        <input type="date" data-new-task-date-input>
+                                    </div>
+    
+                                </div>
+                                <div class="btns-container">
+                                    <button type="submit">Aceptar</button>
+                                    <button type="reset">Cancelar</button>
+                                </div>
+                            </form>
+    
+                        </dialog>
+
                     </div>
-                    <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
-
-                    <dialog class="new-task-dialog" data-new-task-dialog>
-
-                        <form class="new-task-form" method="dialog" data-new-task-form>
-                            <div class="inputs-container">
-                                <div>
-                                    <h4 class="input-title">Titulo</h4>
-                                    <input type="text" placeholder="Nombre" data-new-task-title-input>
-                                </div>
-                                <div>
-                                    <h4 class="input-title">Fecha de Inicio</h4>
-                                    <input type="date" data-new-task-date-input>
-                                </div>
-
-                            </div>
-                            <div class="btns-container">
-                                <button type="submit">Aceptar</button>
-                                <button type="reset">Cancelar</button>
-                            </div>
-                        </form>
-
-                    </dialog>
+                    <ul class="tasks" data-tasks>
+                    </ul>
                 </div>
-                <ul class="tasks" data-tasks>
-                </ul>
             </div>
         </div>
 
@@ -136,6 +142,7 @@
     <script src="./js/newTaskDialog.js"></script>
     <script src="./js/controlPages.js"></script>
     <script src="./js/tooltips.js"></script>
+    <script src="./js/menu.js"></script>
 
 </body>
 
