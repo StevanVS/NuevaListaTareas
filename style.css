@@ -1,5 +1,5 @@
 :root {
-    font-family: Arial, Helvetica, sans-serif;
+font-family: Arial, Helvetica, sans-serif;
     --bg-primary-color: #003049;
     --bg-secondary-color: #fdf0d5;
     --bg-active-link-color: #0007;
@@ -9,6 +9,7 @@
     --text-secondary-color: #222;
     --placeholder-color: #383838;
     --min-height-nav: 3.5em;
+    --list-container-width: clamp(14em, 25vw, 20em);
     --transition: .3s ease;
 }
 
@@ -32,6 +33,7 @@ li {
     padding: .6em 1em;
     border-radius: 1em;
     margin-bottom: .3em;
+    
 }
 
 button {
@@ -148,7 +150,7 @@ nav {
 .lists-container {
     position: absolute;
     background-color: var(--bg-secondary-color);
-    max-width: 25%;
+    width: var(--list-container-width);
     min-width: 14em;
     height: 100%;
     padding: 1em;
@@ -209,11 +211,19 @@ nav {
 
 
 .tasks-container {
-    width: 100%;
-    margin-left: 14em;
-    transition: var(--transition);
+    background-color: #fff2;
+    /* flex-grow: 1; */
     display: flex;
-    justify-items: center;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em 4.5em;
+    overflow: auto;
+    
+    width: 100%;
+    margin-left: var(--list-container-width);
+    transition: var(--transition);
+    /* display: flex;
+    justify-items: center; */
 }
 
 .tasks-container.active {
@@ -221,14 +231,14 @@ nav {
 }
 
 .tasks-container__center {
-    background-color: #fff2;
+    /* background-color: #fff2;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     gap: 1em;
     padding: 1em 4.5em;
-    overflow: auto;
-    width: 90%;
+    overflow: auto; */
+    /* width: 90%; */
     /* max-width: 1050px; */
     /* height: 100vh; */
     /* margin: 0 auto; */
@@ -261,6 +271,7 @@ nav {
 .header .list-title {
     /* padding-top: .08em; */
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 .header .new-task-btn {
