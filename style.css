@@ -140,18 +140,10 @@ nav {
     /* background-color: #fff; */
     margin: 1em 5em;
 }
-
-/* .fc .fc-toolbar.fc-header-toolbar {
-    
-    margin: 0;
-    padding-bottom: 1.5em;
-} */
-
+/* 
 .todo {
     display: flex;
-    /* display: none; */
-
-}
+} */
 
 .lists-container {
     position: absolute;
