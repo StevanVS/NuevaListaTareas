@@ -41,21 +41,25 @@
         <div class="todo page">
             <div class="lists-container">
 
-                <ul>
-                    <li id="all-tasks-list" class="list">
-                        <i class="fa-solid fa-layer-group"></i>
+                <ul data-default-lists>
+                    <li id="inbox-list" class="list" listid="inbox-list">
+                        <i class="fa-solid fa-inbox" listid="inbox-list"></i>
+                        Bandeja de Entrada
+                    </li>
+                    <li id="all-tasks-list" class="list" listid="all-tasks-list">
+                        <i class="fa-solid fa-layer-group" listid="all-tasks-list"></i>
                         Todas
                     </li>
-                    <li id="today-list" class="list">
-                        <i class="fa-solid fa-calendar-check"></i>
+                    <li id="today-list" class="list" listid="today-list">
+                        <i class="fa-solid fa-calendar-check" listid="today-list"></i>
                         Para Hoy
                     </li>
-                    <li id="tags-list" class="list">
-                        <i class="fa-solid fa-tags"></i>
+                    <!-- <li id="tags-list" class="list" listid="tags-list">
+                        <i class="fa-solid fa-tags" listid="tags-list"></i>
                         Etiquetas
-                    </li>
-                    <li id="complete-tasks-list" class="list">
-                        <i class="fa-solid fa-square-check"></i>
+                    </li> -->
+                    <li id="complete-tasks-list" class="list" listid="complete-tasks-list">
+                        <i class="fa-solid fa-square-check" listid="complete-tasks-list"></i>
                         Completadas
                     </li>
                 </ul>
@@ -71,39 +75,37 @@
 
             </div>
             <div class="tasks-container" data-tasks-display-container>
-                <!-- <div class="tasks-container__center">  -->
-                    <div class="header">
+                <div class="header">
 
-                        <h2 class="list-title" data-list-title></h2>
+                    <h2 class="list-title" data-list-title></h2>
 
-                        <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
+                    <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
 
-                        <dialog class="new-task-dialog" data-new-task-dialog>
+                    <dialog class="new-task-dialog" data-new-task-dialog>
 
-                            <form class="new-task-form" method="dialog" data-new-task-form>
-                                <div class="inputs-container">
-                                    <div>
-                                        <h4 class="input-title">Titulo</h4>
-                                        <input type="text" placeholder="Nombre" data-new-task-title-input>
-                                    </div>
-                                    <div>
-                                        <h4 class="input-title">Fecha de Inicio</h4>
-                                        <input type="date" data-new-task-date-input>
-                                    </div>
-
+                        <form class="new-task-form" method="dialog" data-new-task-form>
+                            <div class="inputs-container">
+                                <div>
+                                    <h4 class="input-title">Titulo</h4>
+                                    <input type="text" placeholder="Nombre" data-new-task-title-input>
                                 </div>
-                                <div class="btns-container">
-                                    <button type="submit">Aceptar</button>
-                                    <button type="reset">Cancelar</button>
+                                <div>
+                                    <h4 class="input-title">Fecha de Inicio</h4>
+                                    <input type="date" data-new-task-date-input>
                                 </div>
-                            </form>
 
-                        </dialog>
+                            </div>
+                            <div class="btns-container">
+                                <button type="submit">Aceptar</button>
+                                <button type="reset">Cancelar</button>
+                            </div>
+                        </form>
 
-                    </div>
-                    <ul class="tasks" data-tasks>
-                    </ul>
-                <!-- </div> -->
+                    </dialog>
+
+                </div>
+                <ul class="tasks" data-tasks>
+                </ul>
             </div>
         </div>
 
@@ -125,18 +127,24 @@
             <input type="checkbox" data-task-checkbox>
             <div class="task-content">
                 <div class="task-title" data-task-title></div>
-                <div class="task-date-container">
-                    <b>Fecha: </b><span class="task-date" data-task-date>
+                <div class="task-details">
+                    <div class="task-list-container" >
+                        <b>Lista: </b><span data-task-list-name></span>
+                    </div>
+                    <div class="task-date-container">
+                        <b>Fecha: </b><span data-task-date></span>
+                    </div>
                 </div>
             </div>
             <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
         </li>
     </template>
 
-    <script src="./js/calendar.js"></script>
     <!-- <script src="sweetalert2.all.min.js"></script> -->
     <script src="./js/toasts.js"></script>
+    <script src="./js/defaultLists.js"></script>
     <script src="./js/todo.js"></script>
+    <!-- <script src="./js/calendar.js"></script> -->
     <script src="./js/newTaskDialog.js"></script>
     <script src="./js/controlPages.js"></script>
     <script src="./js/tooltips.js"></script>
