@@ -1,107 +1,154 @@
-const defaultListsContainer = document.querySelector('[data-default-lists]');
 const listsContainer = document.querySelector('[data-lists]');
 const listTemplate = document.querySelector('#list-template');
 const newListForm = document.querySelector('[data-new-list-form]');
-const newListInput = document.querySelector('[data-new-list-input]');
+const titleInput = document.querySelector('[data-new-list-input]');
 const tasksDisplayContainer = document.querySelector('[data-tasks-display-container]');
 const listTitleElement = document.querySelector('[data-list-title]');
 const tasksContainer = document.querySelector('[data-tasks]');
 const taskTemplate = document.querySelector('#task-template');
 const newTaskBtn = document.querySelector('[data-new-task-btn]');
-const newTaskDialog = document.querySelector('[data-new-task-dialog]');
-const newTaskForm = document.querySelector('[data-new-task-form]');
-const newTaskTitleInput = document.querySelector('[data-new-task-title-input]');
-const newTaskDateInput = document.querySelector('[data-new-task-date-input]');
+const editTaskDialog = document.querySelector('[data-edit-task-dialog]');
+const editListDialog = document.querySelector('[data-edit-list-dialog]');
+const deleteTaskDialog = document.querySelector('[data-delete-task-dialog]');
+const deleteListDialog = document.querySelector('[data-delete-list-dialog]');
+const optionsBtnTemplate = document.querySelector('#options-btn-template');
+const tasksBlocker = document.querySelector('[data-blocker]');
+const listsBlocker = document.querySelector('[data-lists-blocker]');
 
 const LOCAL_STORAGE_TASK_KEY = 'todo.tasks';
 const LOCAL_STORAGE_LIST_KEY = 'todo.lists';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'todo.selectedListId';
+const LOCAL_STORAGE_SELECTED_TASK_ID_KEY = 'todo.selectedTaskId';
 let tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASK_KEY)) || [];
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
-let defaultLists = [];
+let selectedTaskId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY);
 
+
+tasksBlocker.addEventListener('click', e => {
+    const openMenus = [...document.querySelectorAll('[data-options-menu].active')];
+    openMenus.forEach(menu => menu.classList.remove('active'));
+    tasksBlocker.classList.remove('active');
+});
+
+listsBlocker.addEventListener('click', e => {
+    const openMenus = [...document.querySelectorAll('[data-options-menu].active')];
+    openMenus.forEach(menu => menu.classList.remove('active'));
+    listsBlocker.classList.remove('active');
+});
+
+defaultListsContainer.addEventListener('click', e => {
+    if (e.target.tagName.toLowerCase() !== 'lu') {
+        selectedListId = e.target.getAttribute('listid');
+        saveAndRender();
+    }
+});
 
 listsContainer.addEventListener('click', e => {
     const elementTag = e.target.tagName.toLowerCase();
-    if (elementTag === 'li' || elementTag === 'span') {
+
+    if (e.target.hasAttribute('list') || elementTag === 'span') {
         selectedListId = e.target.getAttribute('listId');
         saveAndRender();
         return;
     }
 
-    if (elementTag === 'button' || elementTag === 'i') {
+    if (e.target.hasAttribute('data-options-btn')) {
+        const listElement = document.querySelector(
+            `li[listid=${e.target.getAttribute('listId')}]`
+        );
 
-        lists = lists.filter(list => list.id !== e.target.getAttribute('listId'));
-        if (selectedListId === e.target.getAttribute('listId')) {
-            selectedListId = null;
-        }
-        saveAndRender();
+        const menuElement = listElement.querySelector('[data-options-menu]');
+        positionOptionMenu(
+            listElement.querySelector('[data-options-btn-container]'),
+            menuElement
+        );
+
+        menuElement.classList.add('active');
+        listsBlocker.classList.add('active');
+
+        menuElement.addEventListener('click', e => {
+            if (e.target.hasAttribute('data-edit-btn')) {
+                editListDialog.querySelector('form').setAttribute(
+                    'listid', e.target.getAttribute('listId')
+                );
+                editListDialog.showModal();
+                saveAndRender();
+            }
+            if (e.target.hasAttribute('data-delete-btn')) {
+                deleteListDialog.querySelector('form').setAttribute(
+                    'listid', e.target.getAttribute('listId')
+                );
+                deleteListDialog.showModal();
+                saveAndRender();
+            }
+            listsBlocker.classList.remove('active');
+        });
         return;
     }
+
 });
 
 tasksContainer.addEventListener('click', e => {
     const elementTag = e.target.tagName.toLowerCase();
+
+    if (elementTag !== 'ul') selectedTaskId = e.target.getAttribute('taskid');
+
     if (elementTag === 'input') {
-
-        const selectedTask = tasks.find(task => task.id === e.target.getAttribute('taskid'));
+        const selectedTask = tasks.find(task => task.id === selectedTaskId);
         selectedTask.complete = e.target.checked;
-
         saveAndRender();
-        return;
     }
 
-    if (elementTag === 'button' || elementTag === 'i') {
-        tasks = tasks.filter(task => task.id !== e.target.getAttribute('taskid'));
+    if (e.target.hasAttribute('data-options-btn')) {
+        const taskElement = document.querySelector(
+            `li[taskid=${selectedTaskId}]`
+        );
+        const menuElement = taskElement.querySelector('[data-options-menu]');
+        positionOptionMenu(
+            taskElement.querySelector('[data-options-btn-container]'),
+            menuElement
+        );
+        menuElement.classList.add('active');
+        tasksBlocker.classList.add('active');
 
-        saveAndRender();
+        menuElement.addEventListener('click', e => {
+            if (e.target.hasAttribute('data-edit-btn')) {
+                appendListOptions(editTaskListInput);
+                setTaskInputValues(tasks.find(task => task.id === selectedTaskId));
+                editTaskDialog.showModal();
+                saveAndRender();
+            }
+            if (e.target.hasAttribute('data-delete-btn')) {
+                deleteTaskDialog.showModal();
+                saveAndRender();
+            }
+            tasksBlocker.classList.remove('active');
+        });
         return;
     }
 });
 
 newListForm.addEventListener('submit', e => {
     e.preventDefault();
-    const listName = newListInput.value;
-    if (listName == null || listName === '') return;
-    const list = createList(listName);
-    selectedListId = list.id;
-    newListInput.value = null;
+    const list = createAndSetListValues(titleInput);
     lists.push(list);
     saveAndRender();
 });
 
-newTaskForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const taskName = newTaskTitleInput.value;
-    const taskDate = newTaskDateInput.value;
+function positionOptionMenu(relativeEl, menuEl) {
+    const vh = window.innerHeight;
+    const y = window.scrollY + relativeEl.getBoundingClientRect().top;
 
-    if (taskName == null || taskName === '') return;
-    console.log(taskDate);
-    const task = createTask(
-        taskName,
-        taskDate,
-        selectedListId.startsWith('list-') ? selectedListId : ''
-    );
-
-    newTaskTitleInput.value = null;
-    newTaskDateInput.value = null;
-
-    tasks.push(task);
-    saveAndRender();
-});
-
-Array.from(defaultListsContainer.children).forEach(listElement => {
-    listElement.addEventListener('click', e => {
-        selectedListId = listElement.id;
-        console.log(selectedListId);
-        saveAndRender();
-    });
-
-    let list = createList(listElement.innerText);
-    list.id = listElement.id;
-    defaultLists.push(list);
-});
+    if (y > vh * (3 / 4)) {
+        menuEl.classList.add('up');
+        menuEl.classList.remove('down');
+    }
+    else {
+        menuEl.classList.add('down');
+        menuEl.classList.remove('up');
+    }
+}
 
 function createList(name) {
     return { id: 'list-' + Date.now().toString(), name: name };
@@ -126,9 +173,13 @@ function save() {
     localStorage.setItem(LOCAL_STORAGE_TASK_KEY, JSON.stringify(tasks));
     localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
     localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId);
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY, selectedTaskId);
 }
 
 function render() {
+    clearElement(defaultListsContainer);
+    renderDefaultLists();
+
     clearElement(listsContainer);
     renderLists();
 
@@ -141,12 +192,12 @@ function render() {
         tasksDisplayContainer.style.display = '';
         listTitleElement.innerText = selectedList.name;
         clearElement(tasksContainer);
-        const listTasks = getTasks();
+        const listTasks = filterTasks();
         renderTasks(listTasks);
     }
 }
 
-function getTasks() {
+function filterTasks() {
     let listTasks;
     newTaskBtn.style.display = '';
     switch (selectedListId) {
@@ -186,6 +237,8 @@ function renderTasks(listTasks) {
         const taskElement = document.importNode(taskTemplate.content, true).querySelector('li');
         taskElement.setAttribute('taskid', task.id);
 
+        taskElement.appendChild(getOptionsBtn());
+
         const taskElementChildrens = taskElement.querySelectorAll('*');
         taskElementChildrens.forEach(child => {
             child.setAttribute('taskid', task.id);
@@ -194,8 +247,7 @@ function renderTasks(listTasks) {
         const checkboxElement = taskElement.querySelector('[data-task-checkbox]');
         checkboxElement.checked = task.complete;
 
-        if (checkboxElement.checked) taskElement.classList.add('complete')
-        else taskElement.classList.remove('complete');
+        if (checkboxElement.checked) taskElement.classList.add('complete');
 
         const taskTitleElement = taskElement.querySelector('[data-task-title]');
         taskTitleElement.innerText = task.title;
@@ -203,7 +255,7 @@ function renderTasks(listTasks) {
         const taskListElement = taskElement.querySelector('[data-task-list-name]');
         let list = lists.find(list => list.id === task.listid) ||
             defaultLists.find(list => list.id === task.listid);
-        taskListElement.innerText = list.name;
+        if (list) taskListElement.innerText = list.name;
 
         const taskDateElement = taskElement.querySelector('[data-task-date]');
         if (task.start) {
@@ -257,6 +309,9 @@ function renderLists() {
     lists.forEach(list => {
         const listElement = document.importNode(listTemplate.content, true).querySelector('li');
         listElement.setAttribute('listid', list.id);
+        listElement.setAttribute('list', '');
+
+        listElement.appendChild(getOptionsBtn());
 
         const listElementChildrens = listElement.querySelectorAll('*');
         listElementChildrens.forEach(child => {
@@ -272,6 +327,66 @@ function renderLists() {
 
         listsContainer.appendChild(listElement);
     });
+}
+
+function getOptionsBtn() {
+    return document.importNode(optionsBtnTemplate.content, true).querySelector('div');
+}
+
+function appendListOptions(inputSelectEl) {
+    clearElement(inputSelectEl);
+    [defaultLists[0], ...lists].forEach(list => {
+        const listOptionElement = document.createElement('option');
+        listOptionElement.value = list.id;
+        listOptionElement.innerText = list.name;
+
+        if (list.id === selectedListId) {
+            listOptionElement.setAttribute('selected', '');
+        }
+
+        inputSelectEl.appendChild(listOptionElement);
+    });
+}
+
+function addEventsCloseDialog(dialogEl, formEl) {
+    dialogEl.addEventListener('click', e => {
+        if (e.target.tagName.toLowerCase() === 'dialog') {
+            dialogEl.close();
+        }
+    });
+
+    formEl.addEventListener('click', e => {
+        const elementTag = e.target.tagName.toLowerCase();
+        if (elementTag === 'button') dialogEl.close();
+
+    });
+}
+
+function createAndSetTaskValues(titleInput, dateInput, listInput) {
+    const taskName = titleInput.value;
+    const taskDate = dateInput.value;
+    const taskList = listInput.value;
+
+    if (taskName == null || taskName === '') return;
+    const task = createTask(
+        taskName,
+        taskDate,
+        taskList
+    );
+
+    titleInput.value = null;
+    dateInput.value = null;
+
+    return task;
+}
+
+function createAndSetListValues(titleInput) {
+    const listName = titleInput.value;
+    if (listName == null || listName === '') return;
+    const list = createList(listName);
+    selectedListId = list.id;
+    titleInput.value = null;
+    return list;
 }
 
 function clearElement(element) {

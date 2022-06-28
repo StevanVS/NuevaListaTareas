@@ -20,6 +20,7 @@
 
 <body>
     <img class="wallpaper" src="wallpapers/wallhaven-ym55x7.jpg">
+    <div class="blocker" data-blocker></div>
     <nav>
         <div class="btn__menu__container">
             <i class="fas fa-bars btn__menu"></i>
@@ -40,28 +41,7 @@
     <main>
         <div class="todo page">
             <div class="lists-container">
-
                 <ul data-default-lists>
-                    <li id="inbox-list" class="list" listid="inbox-list">
-                        <i class="fa-solid fa-inbox" listid="inbox-list"></i>
-                        Bandeja de Entrada
-                    </li>
-                    <li id="all-tasks-list" class="list" listid="all-tasks-list">
-                        <i class="fa-solid fa-layer-group" listid="all-tasks-list"></i>
-                        Todas
-                    </li>
-                    <li id="today-list" class="list" listid="today-list">
-                        <i class="fa-solid fa-calendar-check" listid="today-list"></i>
-                        Para Hoy
-                    </li>
-                    <!-- <li id="tags-list" class="list" listid="tags-list">
-                        <i class="fa-solid fa-tags" listid="tags-list"></i>
-                        Etiquetas
-                    </li> -->
-                    <li id="complete-tasks-list" class="list" listid="complete-tasks-list">
-                        <i class="fa-solid fa-square-check" listid="complete-tasks-list"></i>
-                        Completadas
-                    </li>
                 </ul>
 
                 <h3 class="lists-header">Mis Listas</h3>
@@ -72,7 +52,8 @@
                 <form action="" class="new-list-container" data-new-list-form>
                     <input type="text" class="new-list-input" placeholder="+ Nueva Lista" data-new-list-input>
                 </form>
-
+                
+                <div class="blocker" data-lists-blocker></div>
             </div>
             <div class="tasks-container" data-tasks-display-container>
                 <div class="header">
@@ -81,26 +62,35 @@
 
                     <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
 
-                    <dialog class="new-task-dialog" data-new-task-dialog>
-
-                        <form class="new-task-form" method="dialog" data-new-task-form>
+                    <dialog data-new-task-dialog>
+                        <form class="dialog-form" method="dialog" data-new-task-form>
+                            <div class="form-title">Crear Tarea</div>
                             <div class="inputs-container">
                                 <div>
-                                    <h4 class="input-title">Titulo</h4>
-                                    <input type="text" placeholder="Nombre" data-new-task-title-input>
+                                    <label class="input-title first">Titulo
+                                        <input class="input-field" type="text" placeholder="Nombre"
+                                            data-new-task-title-input>
+                                    </label>
+
                                 </div>
                                 <div>
-                                    <h4 class="input-title">Fecha de Inicio</h4>
-                                    <input type="date" data-new-task-date-input>
+                                    <label class="input-title">Fecha
+                                        <input class="input-field" type="date" data-new-task-date-input>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="input-title">Lista
+                                        <select class="input-field" data-new-task-list-input>
+                                        </select>
+                                    </label>
                                 </div>
 
                             </div>
                             <div class="btns-container">
                                 <button type="submit">Aceptar</button>
-                                <button type="reset">Cancelar</button>
+                                <button class="outline" type="reset">Cancelar</button>
                             </div>
                         </form>
-
                     </dialog>
 
                 </div>
@@ -112,13 +102,97 @@
         <div class="calendar page">
             <div id='calendar'></div>
         </div>
-
     </main>
+
+    <dialog data-edit-task-dialog>
+        <form class="dialog-form" method="dialog" data-edit-task-form>
+            <div class="form-title">Editar Tarea</div>
+            <div class="inputs-container">
+                <div>
+                    <label class="input-title first">Titulo
+                        <input class="input-field" type="text" placeholder="Nombre" data-edit-task-title-input>
+                    </label>
+
+                </div>
+                <div>
+                    <label class="input-title">Fecha
+                        <input class="input-field" type="date" data-edit-task-date-input>
+                    </label>
+                </div>
+                <div>
+                    <label class="input-title">Lista
+                        <select class="input-field" data-edit-task-list-input>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
+            <div class="btns-container">
+                <button type="submit">Confirmar</button>
+                <button class="outline" type="reset">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog data-edit-list-dialog>
+        <form class="dialog-form" method="dialog" data-edit-list-form>
+            <div class="form-title">Editar Lista</div>
+            <div class="inputs-container">
+                <div>
+                    <label class="input-title first">Titulo
+                        <input class="input-field" type="text" placeholder="Nombre" data-edit-list-title-input>
+                    </label>
+                </div>
+            </div>
+            <div class="btns-container">
+                <button type="submit">Confirmar</button>
+                <button class="outline" type="reset">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="confirm-dialog" data-delete-task-dialog>
+        <form class="dialog-form" method="dialog" data-delete-task-form>
+            <div class="main-text">Seguro desea Eliminar esta Tarea?</div>
+            <div class="btns-container">
+                <button type="submit">Confirmar</button>
+                <button class="outline" type="reset">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="confirm-dialog" data-delete-list-dialog>
+        <form class="dialog-form" method="dialog" data-delete-list-form>
+            <div class="main-text">Seguro desea Eliminar esta Lista?</div>
+            <div class="sub-text">Esta acción eliminará las Tareas dentro de esta Lista</div>
+            <div class="btns-container">
+                <button type="submit">Confirmar</button>
+                <button class="outline" type="reset">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <template id="default-list-template">
+        <li class="list">
+            <i data-default-list-icon></i>
+            <span data-default-list-name></span>
+        </li>
+    </template>
+
+    <template id="options-btn-template">
+        <div class="options-btn-container" data-options-btn-container>
+            <button class="options-btn" data-options-btn><i class="fa-solid fa-ellipsis-vertical"
+                    data-options-btn></i></button>
+            <ul class="options-menu" data-options-menu>
+                <li class="options-item" data-edit-btn>Editar</li>
+                <li class="options-item" data-delete-btn>Eliminar</li>
+            </ul>
+        </div>
+    </template>
 
     <template id="list-template">
         <li class="list">
             <span class="list-name"></span>
-            <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i> </button>
         </li>
     </template>
 
@@ -128,7 +202,7 @@
             <div class="task-content">
                 <div class="task-title" data-task-title></div>
                 <div class="task-details">
-                    <div class="task-list-container" >
+                    <div class="task-list-container">
                         <b>Lista: </b><span data-task-list-name></span>
                     </div>
                     <div class="task-date-container">
@@ -136,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <button class="options-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+
         </li>
     </template>
 
@@ -145,7 +219,11 @@
     <script src="./js/defaultLists.js"></script>
     <script src="./js/todo.js"></script>
     <!-- <script src="./js/calendar.js"></script> -->
-    <script src="./js/newTaskDialog.js"></script>
+    <script src="./js/dialogs/newTaskDialog.js"></script>
+    <script src="./js/dialogs/editTaskDialog.js"></script>
+    <script src="./js/dialogs/editListDialog.js"></script>
+    <script src="./js/dialogs/deleteTaskDialog.js"></script>
+    <script src="./js/dialogs/deleteListDialog.js"></script>
     <script src="./js/controlPages.js"></script>
     <script src="./js/tooltips.js"></script>
     <script src="./js/menu.js"></script>

@@ -4,7 +4,11 @@
     --bg-secondary-color: #fdf0d5;
     --bg-active-link-color: #0007;
     --bg-active-link-color-light: #0000003d;
-    --bg-active-list-color: #fffa;
+    --bg-active-list-color: #fffb;
+    --bg-active-list-color-light: #fff5;
+    --bg-header-color: #fffc;
+    --bg-task-color: #fffa;
+    --bg-options-color: #fffe;
     --text-primary-color: #eee;
     --text-secondary-color: #222;
     --placeholder-color: #383838;
@@ -45,11 +49,6 @@ button {
     border-radius: 1rem;
 }
 
-::placeholder {
-    color: var(--placeholder-color);
-    opacity: 1;
-}
-
 nav {
     position: fixed;
     width: 100vw;
@@ -61,12 +60,49 @@ nav {
     z-index: 10;
 }
 
+dialog {
+    padding: 0;
+    border: none;
+    margin: 2em auto;
+    width: 50%;
+    position: fixed;
+    border-radius: 1em;
+    transition: var(--transition);
+}
+
+.confirm-dialog {
+    width: 30em;
+}
+
+::placeholder {
+    color: var(--placeholder-color);
+    opacity: 1;
+}
+
+/* 
+::-webkit-scrollbar {
+    width: 1em;
+}
+
+::-webkit-scrollbar-track {
+    background: var();
+}
+
+::-webkit-scrollbar-thumb {
+    background: var();
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: var();
+} */
+
 .btn__menu {
-    color: var(--text-primary-color);
     font-size: 1.2em;
 }
 
 .btn__menu__container {
+    color: var(--text-primary-color);
     border-radius: 10px;
     padding: .5em;
     margin: 0 .5em 0 1em;
@@ -135,6 +171,7 @@ nav {
     padding-left: 6em;
     padding-right: 6em; */
     display: flex;
+
 }
 
 #calendar {
@@ -148,15 +185,15 @@ nav {
 }
 
 .lists-container {
-    position: absolute;
+    position: fixed;
     background-color: var(--bg-secondary-color);
     width: var(--list-container-width);
     min-width: 14em;
-    height: 100%;
+    height: calc(100vh - var(--min-height-nav));
     padding: 1em;
     overflow: auto;
     transition: var(--transition);
-    z-index: 50;
+    z-index: 9;
 }
 
 .lists-container.active {
@@ -168,21 +205,46 @@ nav {
     font-weight: bold;
     /* word-break: break-all; */
     word-wrap: break-word;
+    margin: 0;
 }
 
-.list:hover,
+.list:hover {
+    background-color: var(--bg-active-list-color-light);
+}
+
 .list.active {
     background-color: var(--bg-active-list-color);
 }
 
 .lists-header {
-    padding: .5em 0;
+    padding-top: .5em;
     margin: .5em .5em;
     border-top: var(--text-secondary-color) solid .1em;
 }
 
 .list .list-name {
     flex: 1;
+}
+
+.blocker {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: ' ';
+    /* background-color: #0902; */
+    display: none;
+    z-index: 11;
+}
+
+.blocker.active,
+.lists-blocker.active {
+    display: block;
+}
+
+.options-btn-container {
+    position: relative;
 }
 
 .options-btn {
@@ -192,6 +254,55 @@ nav {
 .options-btn:hover {
     background-color: #0002;
 }
+
+.options-menu {
+    color: var(--text-secondary-color);
+    background-color: var(--bg-options-color);
+    position: absolute;
+    right: -1em;
+    /* left: 50%; */
+    /* transform: translate(-50%); */
+    border-radius: 1em;
+    text-align: center;
+    display: none;
+    z-index: 20;
+}
+
+.options-menu.down {
+    top: 1.5em
+}
+
+.options-menu.up {
+    bottom: 1.6em;
+}
+
+.options-menu.active {
+    display: block;
+}
+
+.options-item:hover {
+    background-color: #0002;
+}
+
+.options-item:first-child:hover {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.options-item:last-child:hover {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.options-item {
+    cursor: pointer;
+    display: block;
+    /* padding: .5em 1em; */
+    margin: 0;
+    border-radius: 0;
+    font-weight: bold;
+}
+
 
 .new-list-container {
     display: flex;
@@ -231,7 +342,7 @@ nav {
 
 
 .header {
-    background-color: #fffc;
+    background-color: var(--bg-header-color);
     width: 100;
     display: flex;
     justify-content: space-between;
@@ -266,16 +377,7 @@ nav {
     padding: .3em .8em;
 }
 
-dialog {
-    padding: 0;
-    border: none;
-    margin: 2em auto;
-    width: 50%;
-    position: fixed;
-    border-radius: 1em;
-}
-
-.new-task-form {
+.dialog-form {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -283,17 +385,44 @@ dialog {
     overflow: hidden;
 }
 
-.new-task-form .inputs-container {
+.dialog-form .form-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.dialog-form .main-text {
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.dialog-form .sub-text {
+    font-size: 1.1em;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.dialog-form .inputs-container {
     display: flex;
     flex-direction: column;
     gap: .5em;
 }
 
-.new-task-form .input-title {
+.dialog-form .input-title {
+    display: block;
     margin-top: .5em;
+    font-weight: bold;
 }
 
-.new-task-form input {
+.dialog-form .input-title.first {
+    margin-top: 0;
+}
+
+.dialog-form .input-field {
     font-size: 1em;
     width: 100%;
     padding: .5em;
@@ -301,22 +430,28 @@ dialog {
     border-radius: 1em;
 }
 
-.new-task-form .btns-container {
+.dialog-form .btns-container {
     display: flex;
-    justify-content: end;
-    gap: .4em;
+    justify-content: center;
+    gap: 1.5em;
 }
 
-.new-task-form button {
+.dialog-form button {
     font-size: 1.2em;
     color: var(--text-primary-color);
     background-color: var(--bg-primary-color);
     padding: .3em .8em;
 }
 
+.dialog-form button.outline {
+    color: var(--text-secondary-color);
+    background-color: #0000;
+    border: var(--bg-primary-color) solid .2em;
+}
+
 .task {
     position: relative;
-    background-color: #fffa;
+    background-color: var(--bg-task-color);
     gap: .8em;
     align-items: center;
 }
@@ -366,6 +501,12 @@ dialog {
     color: #383838;
 }
 
+@media screen and (max-width: 1024px) {
+    dialog {
+        width: 60%;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .tasks-container {
         padding: 1em 2em;
@@ -373,5 +514,9 @@ dialog {
 
     .tasks-container.active {
         padding: 1em 5em;
+    }
+
+    dialog {
+        width: 75%;
     }
 }
