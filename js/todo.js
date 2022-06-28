@@ -170,7 +170,6 @@ function createTask(name, date, listid) {
 function saveAndRender() {
     save();
     render();
-    // renderCalendar(tasks);
 }
 
 function save() {

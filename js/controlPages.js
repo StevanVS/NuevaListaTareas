@@ -9,10 +9,9 @@ allLinks.forEach(link => {
         hideAllPages();
 
         showPage(link);
-
-        if (link.getAttribute('link-target') === 'calendar') {
-            renderCalendar(tasks);
-        }
+        
+        selectedPage = link.getAttribute('link-target');
+        localStorage.setItem(LOCAL_STORAGE_SELECTED_PAGE_KEY, selectedPage);
     });
 });
 
@@ -21,6 +20,9 @@ function showPage(link) {
     const pageTargetElement = document.querySelector(
         `[data-${link.getAttribute('link-target')}]`);
     pageTargetElement.style.display = 'flex';
+    if (link.getAttribute('link-target') === 'calendar') {
+            renderCalendar(tasks);
+        }
 }
 
 function hideAllPages() {
@@ -32,4 +34,6 @@ function hideAllPages() {
     });
 }
 
-
+hideAllPages();
+const selectedLink = document.querySelector(`[link-target="${selectedPage}"]`);
+showPage(selectedLink);

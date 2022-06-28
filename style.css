@@ -167,7 +167,7 @@ dialog {
 
 .calendar {
     background-color: #fff;
-    display: flex;
+    display: none;
 }
 
 #calendar {
@@ -189,7 +189,7 @@ dialog {
 }
 
 .todo {
-    display: flex;
+    display: none;
 }
 
 .lists-container {
