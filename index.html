@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
-    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css">
     <link rel="stylesheet" href="style.css">
@@ -39,7 +38,7 @@
     </nav>
 
     <main>
-        <div class="todo page">
+        <div class="todo page" data-todo>
             <div class="lists-container">
                 <ul data-default-lists>
                 </ul>
@@ -99,7 +98,7 @@
             </div>
         </div>
 
-        <div class="calendar page">
+        <div class="calendar page" data-calendar>
             <div id='calendar'></div>
         </div>
     </main>
@@ -201,7 +200,7 @@
             <input type="checkbox" data-task-checkbox>
             <div class="task-content">
                 <div class="task-title" data-task-title></div>
-                <div class="task-details">
+                <div class="task-details" data-task-details>
                     <div class="task-list-container">
                         <b>Lista: </b><span data-task-list-name></span>
                     </div>
@@ -214,11 +213,10 @@
         </li>
     </template>
 
-    <!-- <script src="sweetalert2.all.min.js"></script> -->
     <script src="./js/toasts.js"></script>
+    <script src="./js/calendar.js"></script>
     <script src="./js/defaultLists.js"></script>
     <script src="./js/todo.js"></script>
-    <!-- <script src="./js/calendar.js"></script> -->
     <script src="./js/dialogs/newTaskDialog.js"></script>
     <script src="./js/dialogs/editTaskDialog.js"></script>
     <script src="./js/dialogs/editListDialog.js"></script>

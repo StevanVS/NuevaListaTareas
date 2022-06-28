@@ -72,6 +72,9 @@ listsContainer.addEventListener('click', e => {
                 editListDialog.querySelector('form').setAttribute(
                     'listid', e.target.getAttribute('listId')
                 );
+                setListInputValues(
+                    lists.find(list => list.id === e.target.getAttribute('listId'))
+                );
                 editListDialog.showModal();
                 saveAndRender();
             }
@@ -167,6 +170,7 @@ function createTask(name, date, listid) {
 function saveAndRender() {
     save();
     render();
+    // renderCalendar(tasks);
 }
 
 function save() {
@@ -175,6 +179,7 @@ function save() {
     localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId);
     localStorage.setItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY, selectedTaskId);
 }
+
 
 function render() {
     clearElement(defaultListsContainer);
@@ -257,6 +262,12 @@ function renderTasks(listTasks) {
             defaultLists.find(list => list.id === task.listid);
         if (list) taskListElement.innerText = list.name;
 
+        [defaultLists[0], ...lists].forEach(list => {
+            if (list.id === selectedListId) {
+                taskListElement.parentElement.style.display = 'none';
+            }
+        })
+
         const taskDateElement = taskElement.querySelector('[data-task-date]');
         if (task.start) {
             taskDateElement.innerText = getFormattedDate(task.start);
@@ -265,6 +276,11 @@ function renderTasks(listTasks) {
             }
         } else {
             taskDateElement.parentElement.style.display = 'none';
+        }
+
+        if (taskListElement.parentElement.style.display === 'none' &&
+            taskDateElement.parentElement.style.display === 'none') {
+                taskElement.querySelector('[data-task-details]').style.display = 'none';
         }
 
         tasksContainer.appendChild(taskElement);

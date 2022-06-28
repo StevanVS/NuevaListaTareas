@@ -1,11 +1,12 @@
 :root {
     font-family: Arial, Helvetica, sans-serif;
     --bg-primary-color: #003049;
+    --bg-primary-color-dark: #001825;
     --bg-secondary-color: #fdf0d5;
-    --bg-active-link-color: #0007;
-    --bg-active-link-color-light: #0000003d;
-    --bg-active-list-color: #fffb;
-    --bg-active-list-color-light: #fff5;
+    --bg-active-dark-color: #0000003d;
+    --bg-active-darker-color: #0007;
+    --bg-active-light-color: #fffb;
+    --bg-active-lighter-color: #fff5;
     --bg-header-color: #fffc;
     --bg-task-color: #fffa;
     --bg-options-color: #fffe;
@@ -111,7 +112,7 @@ dialog {
 }
 
 .btn__menu__container:hover {
-    background-color: var(--bg-active-link-color-light);
+    background-color: var(--bg-active-dark-color);
 }
 
 .logo {
@@ -135,7 +136,7 @@ dialog {
 }
 
 .nav-links li:hover {
-    background-color: var(--bg-active-link-color-light);
+    background-color: var(--bg-active-dark-color);
 }
 
 .nav-links a {
@@ -145,7 +146,7 @@ dialog {
 
 .nav-links li.active {
     font-weight: bolder;
-    background-color: var(--bg-active-link-color);
+    background-color: var(--bg-active-darker-color);
     border-radius: 1em;
 }
 
@@ -166,18 +167,25 @@ dialog {
 
 .calendar {
     background-color: #fff;
-    /* background-color: var(--bg-secondary-color); */
-    /* padding-top: calc(var(--min-height-nav) + 1em);
-    padding-left: 6em;
-    padding-right: 6em; */
     display: flex;
-
 }
 
 #calendar {
     flex: auto;
     /* background-color: #fff; */
-    margin: 1em 5em;
+    margin: 1em 12em;
+}
+
+.fc-toolbar-title {
+    text-transform: capitalize;
+}
+
+.fc .fc-button-primary {
+    background-color: var(--bg-primary-color);
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--bg-primary-color-dark);
 }
 
 .todo {
@@ -209,11 +217,11 @@ dialog {
 }
 
 .list:hover {
-    background-color: var(--bg-active-list-color-light);
+    background-color: var(--bg-active-lighter-color);
 }
 
 .list.active {
-    background-color: var(--bg-active-list-color);
+    background-color: var(--bg-active-light-color);
 }
 
 .lists-header {
@@ -505,6 +513,10 @@ dialog {
     dialog {
         width: 60%;
     }
+
+    #calendar {
+        margin: 1em 8em;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -518,5 +530,9 @@ dialog {
 
     dialog {
         width: 75%;
+    }
+
+    #calendar {
+        margin: 1em 3em;
     }
 }
