@@ -34,6 +34,7 @@ function hideAllPages() {
     });
 }
 
-hideAllPages();
-const selectedLink = document.querySelector(`[link-target="${selectedPage}"]`);
-showPage(selectedLink);
+if (selectedPage) {
+    const selectedLink = document.querySelector(`[link-target="${selectedPage}"]`);
+    showPage(selectedLink);
+}

@@ -189,7 +189,7 @@ dialog {
 }
 
 .todo {
-    display: none;
+    display: flex;
 }
 
 .lists-container {
