@@ -26,16 +26,13 @@ let selectedTaskId = localStorage.getItem(LOCAL_STORAGE_SELECTED_TASK_ID_KEY);
 
 
 tasksBlocker.addEventListener('click', e => {
-    const openMenus = [...document.querySelectorAll('[data-options-menu].active')];
-    openMenus.forEach(menu => menu.classList.remove('active'));
-    tasksBlocker.classList.remove('active');
+    closeDropDownMenus(tasksBlocker)
 });
 
 listsBlocker.addEventListener('click', e => {
-    const openMenus = [...document.querySelectorAll('[data-options-menu].active')];
-    openMenus.forEach(menu => menu.classList.remove('active'));
-    listsBlocker.classList.remove('active');
+    closeDropDownMenus(listsBlocker);
 });
+
 
 defaultListsContainer.addEventListener('click', e => {
     if (e.target.tagName.toLowerCase() !== 'lu') {
@@ -138,6 +135,12 @@ newListForm.addEventListener('submit', e => {
     lists.push(list);
     saveAndRender();
 });
+
+function closeDropDownMenus(blocker) {
+    const openMenus = [...document.querySelectorAll('.dropdown-menu.active')];
+    openMenus.forEach(menu => menu.classList.toggle('active'));
+    blocker.classList.remove('active');
+}
 
 function positionOptionMenu(relativeEl, menuEl) {
     const vh = window.innerHeight;

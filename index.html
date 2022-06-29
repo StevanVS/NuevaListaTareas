@@ -21,20 +21,31 @@
     <img class="wallpaper" src="wallpapers/wallhaven-ym55x7.jpg">
     <div class="blocker" data-blocker></div>
     <nav>
-        <div class="btn__menu__container">
-            <i class="fas fa-bars btn__menu"></i>
+        <div class="nav-logo-and-links-container">
+            <div class="btn__menu__container">
+                <i class="fas fa-bars btn__menu"></i>
+            </div>
+            <h1 class="logo">Organizador</h1>
+            <ul class="nav-links" data-nav-links>
+                <li class="link active" link-target="todo">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Listas</span>
+                </li>
+                <li class="link" link-target="calendar">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Calendario</span>
+                </li>
+            </ul>
         </div>
-        <h1 class="logo">Organizador</h1>
-        <ul class="nav-links" data-nav-links>
-            <li link-target="todo">
-                <i class="fa-solid fa-list-check"></i>
-                <span>Listas</span>
-            </li>
-            <li link-target="calendar">
-                <i class="fa-solid fa-calendar-days"></i>
-                <span>Calendario</span>
-            </li>
-        </ul>
+        <div>
+            <div class="dropdown-container" data-help-container>
+                <div class="link help-link">?</div>
+                <ul class="dropdown-menu help-menu active" data-help-menu>
+                    <li class="dropdown-item">Documentación</li>
+                    <li class="dropdown-item">Soporte</li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <main>
@@ -51,7 +62,7 @@
                 <form action="" class="new-list-container" data-new-list-form>
                     <input type="text" class="new-list-input" placeholder="+ Nueva Lista" data-new-list-input>
                 </form>
-                
+
                 <div class="blocker" data-lists-blocker></div>
             </div>
             <div class="tasks-container" data-tasks-display-container>
@@ -179,12 +190,12 @@
     </template>
 
     <template id="options-btn-template">
-        <div class="options-btn-container" data-options-btn-container>
-            <button class="options-btn" data-options-btn><i class="fa-solid fa-ellipsis-vertical"
+        <div class="dropdown-container" data-options-btn-container>
+            <button class="dropdown-btn" data-options-btn><i class="fa-solid fa-ellipsis-vertical"
                     data-options-btn></i></button>
-            <ul class="options-menu" data-options-menu>
-                <li class="options-item" data-edit-btn>Editar</li>
-                <li class="options-item" data-delete-btn>Eliminar</li>
+            <ul class="dropdown-menu" data-options-menu>
+                <li class="dropdown-item" data-edit-btn>Editar</li>
+                <li class="dropdown-item" data-delete-btn>Eliminar</li>
             </ul>
         </div>
     </template>
@@ -223,6 +234,7 @@
     <script src="./js/dialogs/deleteTaskDialog.js"></script>
     <script src="./js/dialogs/deleteListDialog.js"></script>
     <script src="./js/controlPages.js"></script>
+    <script src="./js/helpMenu.js"></script>
     <script src="./js/tooltips.js"></script>
     <script src="./js/menu.js"></script>
 
