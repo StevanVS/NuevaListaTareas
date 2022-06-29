@@ -1,3 +1,4 @@
+const wallpaper = document.querySelector('[data-wallpaper]');
 const listsContainer = document.querySelector('[data-lists]');
 const listTemplate = document.querySelector('#list-template');
 const newListForm = document.querySelector('[data-new-list-form]');
@@ -193,8 +194,10 @@ function render() {
     const selectedList = getSelectedList();
 
     if (selectedList == null) {
+        wallpaper.style.filter = '';
         tasksDisplayContainer.style.display = 'none';
     } else {
+        wallpaper.style.filter = 'blur(2px)';
         sortTasks();
         tasksDisplayContainer.style.display = '';
         listTitleElement.innerText = selectedList.name;

@@ -144,7 +144,7 @@ dialog {
 
 .wallpaper {
     min-width: 100vw;
-    position: absolute;
+    position: fixed;
     right: 0;
     pointer-events: none;
     z-index: -10;
@@ -413,11 +413,11 @@ dialog {
 }
 
 .dialog-form .input-field {
-    font-size: 1em;
+    font-size: 1rem;
     width: 100%;
     padding: .5em;
     border: var(--placeholder-color) solid .2em;
-    border-radius: 1em;
+    border-radius: 1rem;
 }
 
 .dialog-form .btns-container {
