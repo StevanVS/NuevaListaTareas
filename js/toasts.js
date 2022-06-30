@@ -1,28 +1,15 @@
-function errorToast(message) {
-    Swal.fire({
-        title: 'Error!',
-        text: message,
-        icon: 'error',
-        // confirmButtonText: 'Cool'
-    })
-}
 
-function confirmDialog(message) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: message,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-            )
+function toastNotification(text, color) {
+    Toastify({
+        text: text,
+        duration: 2000,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        style: {
+            fontSize: "1.2rem",
+            background: color || "var(--bg-primary-color)",
+            transition: "var(--transition)"
         }
-    })
+    }).showToast();
 }

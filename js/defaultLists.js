@@ -23,6 +23,7 @@ const defaultLists = [{
 function renderDefaultLists() {
     defaultLists.forEach(list => {
         const listElement = document.importNode(defaultListTemplate.content, true).querySelector('li');
+        listElement.id = list.id;
         listElement.setAttribute('listid', list.id);
 
         const listElementChildrens = listElement.querySelectorAll('*');

@@ -16,5 +16,6 @@ editListForm.addEventListener('submit', e => {
 
     lists = lists.filter(list => list.id !== e.target.getAttribute('listId'));
     lists.push(editedList);
+    toastNotification(`Lista '${editedList.name}' Editada`);
     saveAndRender();
 });

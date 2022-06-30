@@ -134,6 +134,7 @@ newListForm.addEventListener('submit', e => {
     e.preventDefault();
     const list = createAndSetListValues(titleInput);
     lists.push(list);
+    toastNotification(`Nueva Lista '${list.name}' Creada`);
     saveAndRender();
 });
 
@@ -197,7 +198,7 @@ function render() {
         wallpaper.style.filter = '';
         tasksDisplayContainer.style.display = 'none';
     } else {
-        wallpaper.style.filter = 'blur(2px)';
+        wallpaper.style.filter = 'blur(1px)';
         sortTasks();
         tasksDisplayContainer.style.display = '';
         listTitleElement.innerText = selectedList.name;

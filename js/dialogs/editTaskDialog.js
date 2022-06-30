@@ -24,5 +24,6 @@ editTaskForm.addEventListener('submit', e => {
 
     tasks = tasks.filter(task => task.id !== selectedTaskId);
     tasks.push(editedTask);
+    toastNotification(`Tarea '${editedTask.title}' Editada`)
     saveAndRender();
 });

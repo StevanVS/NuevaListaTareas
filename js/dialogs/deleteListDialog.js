@@ -4,10 +4,12 @@ addEventsCloseDialog(deleteListDialog, deleteListForm);
 
 deleteListForm.addEventListener('submit', e => {
     e.preventDefault();
-    tasks = tasks.filter(task => task.listid !== e.target.getAttribute('listId'));
-    lists = lists.filter(list => list.id !== e.target.getAttribute('listId'));
+    const listTarget = lists.find(list => list.id === e.target.getAttribute('listId'));
+    tasks = tasks.filter(task => task.listid !== listTarget.id);
+    lists = lists.filter(list => list.id !== listTarget.id);
     if (selectedListId === e.target.getAttribute('listId')) {
         selectedListId = null;
     }
+    toastNotification(`Lista '${listTarget.name}' Eliminada`, '#aa001d')
     saveAndRender();
 });

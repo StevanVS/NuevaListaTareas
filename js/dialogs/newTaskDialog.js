@@ -31,5 +31,6 @@ newTaskForm.addEventListener('submit', e => {
         newTaskListInput
     );
     tasks.push(task);
+    toastNotification(`Nueva Tarea '${task.title}' Creada`);
     saveAndRender();
 });

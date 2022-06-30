@@ -4,6 +4,9 @@ tippy.setDefaultProps({
     placement: 'right',
 });
 
+tippy('#inbox-list', {
+    content: 'Lista principal de las tareas'
+})
 
 tippy('#all-tasks-list', {
     content: 'Todas las tareas'
