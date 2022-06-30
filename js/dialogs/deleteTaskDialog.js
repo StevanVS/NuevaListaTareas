@@ -6,7 +6,8 @@ deleteTaskForm.addEventListener('submit', e => {
     e.preventDefault();
     const task = tasks.find(task => task.id === selectedTaskId)
     tasks = tasks.filter(task => task.id !== selectedTaskId);
-    toastNotification(`Tarea '${task.title}' Eliminada`, '#aa001d')
+    deleteTaskDialog.close();
+    toastNotificationError(`Tarea '${task.title}' Eliminada`)
     selectedTaskId = null;
     saveAndRender();
 })

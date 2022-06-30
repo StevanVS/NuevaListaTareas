@@ -18,7 +18,12 @@ newTaskForm.addEventListener('submit', e => {
         newTaskDateInput,
         newTaskListInput
     );
+    if (!task) {
+        toastNotificationError('Es necesario escribir un nombre')
+        return;
+    }
     tasks.push(task);
+    newTaskDialog.close();
     toastNotification(`Nueva Tarea '${task.title}' Creada`);
     saveAndRender();
 });

@@ -20,10 +20,16 @@ editTaskForm.addEventListener('submit', e => {
         editTaskListInput
     );
 
-    editedTask.complete = tasks.find(task => task.id === selectedTaskId).complete;
+    if (!editedTask) {
+        toastNotificationError('Es necesario escribir un nombre');
+        return;
+    }
 
+    editedTask.complete = tasks.find(task => task.id === selectedTaskId).complete;
     tasks = tasks.filter(task => task.id !== selectedTaskId);
     tasks.push(editedTask);
+
+    editTaskDialog.close();
     toastNotification(`Tarea '${editedTask.title}' Editada`)
     saveAndRender();
 });

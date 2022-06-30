@@ -10,6 +10,7 @@ deleteListForm.addEventListener('submit', e => {
     if (selectedListId === e.target.getAttribute('listId')) {
         selectedListId = 'inbox-list';
     }
-    toastNotification(`Lista '${listTarget.name}' Eliminada`, '#aa001d')
+    deleteListDialog.close();
+    toastNotificationError(`Lista '${listTarget.name}' Eliminada`)
     saveAndRender();
 });

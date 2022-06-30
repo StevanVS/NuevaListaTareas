@@ -14,8 +14,15 @@ editListForm.addEventListener('submit', e => {
         editListTitleInput
     );
 
+    if (!editedList) {
+        toastNotificationError('Es necesario escribir un nombre');
+        return;
+    }
+
     lists = lists.filter(list => list.id !== e.target.getAttribute('listId'));
     lists.push(editedList);
+
+    editListDialog.close();
     toastNotification(`Lista '${editedList.name}' Editada`);
     saveAndRender();
 });

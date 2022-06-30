@@ -249,6 +249,10 @@ dialog {
     font-size: 1.2em;
 }
 
+.dropdown-btn:hover {
+    background-color: #0002;
+}
+
 .dropdown-menu {
     color: var(--text-secondary-color);
     background-color: var(--bg-options-color);
@@ -497,6 +501,10 @@ dialog {
     color: #383838;
 }
 
+.task.complete .task-title {
+    text-decoration: line-through;
+}
+
 .primary {
     background-color: var(--bg-primary-color);
     color: var(--text-primary-color);
@@ -512,6 +520,7 @@ dialog {
     color: var(--text-primary-color);
     background-color: #aa001d;
 }
+
 
 @media screen and (max-width: 1024px) {
     dialog {

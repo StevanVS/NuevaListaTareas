@@ -148,6 +148,12 @@ function openDeleteTaskDialog() {
 newListForm.addEventListener('submit', e => {
     e.preventDefault();
     const list = createAndSetListValues(newListNameInput);
+
+    if (!list) {
+        toastNotificationError('Es necesario escribir un nombre');
+        return;
+    }
+
     lists.push(list);
     toastNotification(`Nueva Lista '${list.name}' Creada`);
     newListNameInput.blur();
@@ -294,7 +300,7 @@ function renderTasks(listTasks) {
         if (task.start) {
             taskDateElement.innerText = getFormattedDate(task.start);
             if (isTaskOverdue(task.start) && !checkboxElement.checked) {
-                taskDateElement.style.color = '#d00';
+                taskDateElement.style.color = '#aa001d';
             }
         } else {
             taskDateElement.parentElement.style.display = 'none';
@@ -393,11 +399,9 @@ function addEventsCloseDialog(dialogEl, formEl) {
         }
     });
 
-    formEl.addEventListener('click', e => {
-        const elementTag = e.target.tagName.toLowerCase();
-        if (elementTag === 'button') dialogEl.close();
-
-    });
+    formEl.querySelector('[data-cancel-btn]').onclick = () => {
+        dialogEl.close();
+    }
 }
 
 function createAndSetTaskValues(titleInput, dateInput, listInput) {
@@ -406,6 +410,8 @@ function createAndSetTaskValues(titleInput, dateInput, listInput) {
     const taskList = listInput.value;
 
     if (taskName == null || taskName === '') return;
+
+
     const task = createTask(
         taskName,
         taskDate,
