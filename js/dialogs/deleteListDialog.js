@@ -8,7 +8,7 @@ deleteListForm.addEventListener('submit', e => {
     tasks = tasks.filter(task => task.listid !== listTarget.id);
     lists = lists.filter(list => list.id !== listTarget.id);
     if (selectedListId === e.target.getAttribute('listId')) {
-        selectedListId = null;
+        selectedListId = 'inbox-list';
     }
     toastNotification(`Lista '${listTarget.name}' Eliminada`, '#aa001d')
     saveAndRender();

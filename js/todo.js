@@ -2,7 +2,7 @@ const wallpaper = document.querySelector('[data-wallpaper]');
 const listsContainer = document.querySelector('[data-lists]');
 const listTemplate = document.querySelector('#list-template');
 const newListForm = document.querySelector('[data-new-list-form]');
-const titleInput = document.querySelector('[data-new-list-input]');
+const newListNameInput = document.querySelector('[data-new-list-input]');
 const tasksDisplayContainer = document.querySelector('[data-tasks-display-container]');
 const listTitleElement = document.querySelector('[data-list-title]');
 const tasksContainer = document.querySelector('[data-tasks]');
@@ -66,6 +66,7 @@ listsContainer.addEventListener('click', e => {
         listsBlocker.classList.add('active');
 
         menuElement.addEventListener('click', e => {
+
             if (e.target.hasAttribute('data-edit-btn')) {
                 editListDialog.querySelector('form').setAttribute(
                     'listid', e.target.getAttribute('listId')
@@ -77,10 +78,7 @@ listsContainer.addEventListener('click', e => {
                 saveAndRender();
             }
             if (e.target.hasAttribute('data-delete-btn')) {
-                deleteListDialog.querySelector('form').setAttribute(
-                    'listid', e.target.getAttribute('listId')
-                );
-                deleteListDialog.showModal();
+                openDeleteListDialog(e.target.getAttribute('listId'));
                 saveAndRender();
             }
             listsBlocker.classList.remove('active');
@@ -89,6 +87,17 @@ listsContainer.addEventListener('click', e => {
     }
 
 });
+
+function openDeleteListDialog(listId) {
+    deleteListDialog.querySelector('form').setAttribute(
+        'listid', listId
+    );
+    const list = lists.find(list => list.id === listId);
+    if (!list) return;
+    deleteListDialog.querySelector('[data-main-text]').
+        innerText = `Seguro desea Eliminar la Lista '${list.name}'?`;
+    deleteListDialog.showModal();
+}
 
 tasksContainer.addEventListener('click', e => {
     const elementTag = e.target.tagName.toLowerCase();
@@ -121,7 +130,7 @@ tasksContainer.addEventListener('click', e => {
                 saveAndRender();
             }
             if (e.target.hasAttribute('data-delete-btn')) {
-                deleteTaskDialog.showModal();
+                openDeleteTaskDialog();
                 saveAndRender();
             }
             tasksBlocker.classList.remove('active');
@@ -130,11 +139,18 @@ tasksContainer.addEventListener('click', e => {
     }
 });
 
+function openDeleteTaskDialog() {
+    const task = tasks.find(t => t.id === selectedTaskId);
+    deleteTaskDialog.querySelector('[data-main-text]').innerText = `Seguro desea Eliminar la Tarea '${task.title}'?`;
+    deleteTaskDialog.showModal();
+}
+
 newListForm.addEventListener('submit', e => {
     e.preventDefault();
-    const list = createAndSetListValues(titleInput);
+    const list = createAndSetListValues(newListNameInput);
     lists.push(list);
     toastNotification(`Nueva Lista '${list.name}' Creada`);
+    newListNameInput.blur();
     saveAndRender();
 });
 
@@ -286,7 +302,7 @@ function renderTasks(listTasks) {
 
         if (taskListElement.parentElement.style.display === 'none' &&
             taskDateElement.parentElement.style.display === 'none') {
-                taskElement.querySelector('[data-task-details]').style.display = 'none';
+            taskElement.querySelector('[data-task-details]').style.display = 'none';
         }
 
         tasksContainer.appendChild(taskElement);

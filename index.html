@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/hotkeys-js@3.7.3/dist/hotkeys.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.css">
     <link rel="stylesheet" href="style.css">
@@ -73,37 +74,6 @@
 
                     <button class="new-task-btn" data-new-task-btn>+ Nueva Tarea</button>
 
-                    <dialog data-new-task-dialog>
-                        <form class="dialog-form" method="dialog" data-new-task-form>
-                            <div class="form-title">Crear Tarea</div>
-                            <div class="inputs-container">
-                                <div>
-                                    <label class="input-title first">Titulo
-                                        <input class="input-field" type="text" placeholder="Nombre"
-                                            data-new-task-title-input>
-                                    </label>
-
-                                </div>
-                                <div>
-                                    <label class="input-title">Fecha
-                                        <input class="input-field" type="date" data-new-task-date-input>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label class="input-title">Lista
-                                        <select class="input-field" data-new-task-list-input>
-                                        </select>
-                                    </label>
-                                </div>
-
-                            </div>
-                            <div class="btns-container">
-                                <button type="submit">Aceptar</button>
-                                <button class="outline" type="reset">Cancelar</button>
-                            </div>
-                        </form>
-                    </dialog>
-
                 </div>
                 <ul class="tasks" data-tasks>
                 </ul>
@@ -114,6 +84,36 @@
             <div id='calendar'></div>
         </div>
     </main>
+
+    <dialog data-new-task-dialog>
+        <form class="dialog-form" method="dialog" data-new-task-form>
+            <div class="form-title">Crear Tarea</div>
+            <div class="inputs-container">
+                <div>
+                    <label class="input-title first">Titulo
+                        <input class="input-field" type="text" placeholder="Nombre" data-new-task-title-input>
+                    </label>
+
+                </div>
+                <div>
+                    <label class="input-title">Fecha
+                        <input class="input-field" type="date" data-new-task-date-input>
+                    </label>
+                </div>
+                <div>
+                    <label class="input-title">Lista
+                        <select class="input-field" data-new-task-list-input>
+                        </select>
+                    </label>
+                </div>
+
+            </div>
+            <div class="btns-container">
+                <button class="primary" type="submit">Aceptar</button>
+                <button class="outline-primary" type="reset">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
 
     <dialog data-edit-task-dialog>
         <form class="dialog-form" method="dialog" data-edit-task-form>
@@ -139,8 +139,8 @@
 
             </div>
             <div class="btns-container">
-                <button type="submit">Confirmar</button>
-                <button class="outline" type="reset">Cancelar</button>
+                <button class="primary" type="submit">Confirmar</button>
+                <button class="outline-primary" type="reset">Cancelar</button>
             </div>
         </form>
     </dialog>
@@ -156,29 +156,29 @@
                 </div>
             </div>
             <div class="btns-container">
-                <button type="submit">Confirmar</button>
-                <button class="outline" type="reset">Cancelar</button>
+                <button class="primary" type="submit">Confirmar</button>
+                <button class="outline-primary" type="reset">Cancelar</button>
             </div>
         </form>
     </dialog>
 
     <dialog class="confirm-dialog" data-delete-task-dialog>
         <form class="dialog-form" method="dialog" data-delete-task-form>
-            <div class="main-text">Seguro desea Eliminar esta Tarea?</div>
+            <div class="main-text" data-main-text>Seguro desea Eliminar esta Tarea?</div>
             <div class="btns-container">
-                <button type="submit">Confirmar</button>
-                <button class="outline" type="reset">Cancelar</button>
+                <button class="danger" type="submit">Confirmar</button>
+                <button class="outline-primary" type="reset">Cancelar</button>
             </div>
         </form>
     </dialog>
 
     <dialog class="confirm-dialog" data-delete-list-dialog>
         <form class="dialog-form" method="dialog" data-delete-list-form>
-            <div class="main-text">Seguro desea Eliminar esta Lista?</div>
+            <div class="main-text" data-main-text>Seguro desea Eliminar esta Lista?</div>
             <div class="sub-text">Esta acción eliminará las Tareas dentro de esta Lista</div>
             <div class="btns-container">
-                <button type="submit">Confirmar</button>
-                <button class="outline" type="reset">Cancelar</button>
+                <button class="danger" type="submit">Confirmar</button>
+                <button class="outline-primary" type="reset">Cancelar</button>
             </div>
         </form>
     </dialog>
@@ -238,8 +238,9 @@
     <script src="./js/helpMenu.js"></script>
     <script src="./js/tooltips.js"></script>
     <script src="./js/menu.js"></script>
+    <script src="./js/shortcuts.js"></script>
 
-   
+
 </body>
 
 </html>

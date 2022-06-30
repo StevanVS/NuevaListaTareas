@@ -70,6 +70,7 @@ dialog {
     transition: var(--transition);
 }
 
+
 .confirm-dialog {
     width: 30em;
 }
@@ -311,6 +312,12 @@ dialog {
     outline: none;
     border-bottom: var(--placeholder-color) solid .1em;
     width: 85%;
+    padding: .4em;
+    padding-bottom: 0.1em;
+}
+
+.new-list-input:focus {
+    outline: auto;
 }
 
 
@@ -428,16 +435,16 @@ dialog {
 
 .dialog-form button {
     font-size: 1.2em;
-    color: var(--text-primary-color);
-    background-color: var(--bg-primary-color);
+    /* color: var(--text-primary-color); */
+    /* background-color: var(--bg-primary-color); */
     padding: .3em .8em;
 }
 
-.dialog-form button.outline {
+/* .dialog-form button.outline {
     color: var(--text-secondary-color);
     background-color: #0000;
     border: var(--bg-primary-color) solid .2em;
-}
+} */
 
 .task {
     position: relative;
@@ -490,6 +497,21 @@ dialog {
     color: #383838;
 }
 
+.primary {
+    background-color: var(--bg-primary-color);
+    color: var(--text-primary-color);
+}
+
+.outline-primary {
+    color: var(--text-secondary-color);
+    background-color: #0000;
+    border: var(--bg-primary-color) solid .2em;
+}
+
+.danger {
+    color: var(--text-primary-color);
+    background-color: #aa001d;
+}
 
 @media screen and (max-width: 1024px) {
     dialog {
