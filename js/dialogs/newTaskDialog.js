@@ -19,7 +19,7 @@ newTaskForm.addEventListener('submit', e => {
         newTaskListInput
     );
     if (!task) {
-        toastNotificationError('Es necesario escribir un nombre')
+        toastNotificationError('Es necesario escribir el nombre')
         return;
     }
     tasks.push(task);

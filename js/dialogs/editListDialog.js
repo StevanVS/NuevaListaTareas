@@ -15,7 +15,7 @@ editListForm.addEventListener('submit', e => {
     );
 
     if (!editedList) {
-        toastNotificationError('Es necesario escribir un nombre');
+        toastNotificationError('Es necesario escribir el nombre');
         return;
     }
 

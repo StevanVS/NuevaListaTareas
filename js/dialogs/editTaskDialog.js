@@ -21,7 +21,7 @@ editTaskForm.addEventListener('submit', e => {
     );
 
     if (!editedTask) {
-        toastNotificationError('Es necesario escribir un nombre');
+        toastNotificationError('Es necesario escribir el nombre');
         return;
     }
 
