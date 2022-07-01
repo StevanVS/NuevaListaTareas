@@ -1,6 +1,9 @@
 const helpContainer = document.querySelector('[data-help-container]');
 const helpMenu = document.querySelector('[data-help-menu]');
-const doc = document.querySelector('[data-doc]');
+const docBtn = document.querySelector('[data-doc-btn]');
+const supportBtn = document.querySelector('[data-support-btn]');
+const supportDialog = document.querySelector('[data-support-dialog]');
+const closeBtn = document.querySelector('[data-close-support]');
 
 
 helpContainer.addEventListener('click', e => {
@@ -8,6 +11,16 @@ helpContainer.addEventListener('click', e => {
     listsBlocker.classList.add('active');
 })
 
-doc.onclick = () => {
+docBtn.onclick = () => {
     window.location.href = './doc/doc.html';
+}
+
+supportBtn.onclick = () => {
+    helpMenu.classList.remove('active');
+    addEventsCloseDialog(supportDialog);
+    supportDialog.showModal();
+}
+
+closeBtn.onclick = () => {
+    supportDialog.close();
 }

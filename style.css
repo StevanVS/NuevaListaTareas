@@ -396,7 +396,7 @@ button:hover {
     font-size: 1.8em;
 }
 
-.dialog-form .main-text {
+.main-text {
     font-weight: bold;
     font-size: 2em;
     text-align: center;
@@ -404,7 +404,7 @@ button:hover {
     margin: 0 auto;
 }
 
-.dialog-form .sub-text {
+.sub-text {
     font-size: 1.1em;
     text-align: center;
     width: 50%;
@@ -530,6 +530,32 @@ button.outline-primary:hover {
     background-color: #aa001d;
 }
 
+.support-content {
+    padding: 1.5em 1.5em 1em 1.5em;
+}
+
+.support-content * {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    padding-bottom: .5em;
+}
+
+.support-content h3 {
+    font-size: 1.5em;
+}
+.support-content li {
+    padding: .3em 0;
+}
+.support-content button {
+    margin: auto;
+    margin-top: .5em;
+    font-size: 1.3em;
+    width: auto;
+    padding: .3em .5em;
+}
 
 @media screen and (max-width: 1024px) {
     dialog {

@@ -399,8 +399,10 @@ function addEventsCloseDialog(dialogEl, formEl) {
         }
     });
 
-    formEl.querySelector('[data-cancel-btn]').onclick = () => {
-        dialogEl.close();
+    if (formEl) {
+        formEl.querySelector('[data-cancel-btn]').onclick = () => {
+            dialogEl.close();
+        }
     }
 }
 
