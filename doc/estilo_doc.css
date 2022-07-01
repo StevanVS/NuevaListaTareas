@@ -1,0 +1,76 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    --pading-container: 100px 0; /*----------------------*/
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 35px;
+}
+
+button {
+    font-size: 1.3em;
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+    border: none;
+    padding: .3em .5em;
+    border-radius: 1em;
+}
+
+button:hover {
+    background-color: #0001;
+}
+
+main.container{
+    padding: 2em 0;
+}
+
+.Doc{
+    background-color: #eee;
+}
+
+.container{
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden ;
+    padding: var(--pading-container);
+}
+
+.Titulo{
+    padding: 1em 0;
+}
+
+ul li{
+    padding: 0 3em;
+}
+
+ul li a{
+    text-decoration: none;
+    color: rgb(27, 31, 231);
+}
+
+.subtitulo{
+    margin: 2em 0 .5em 0;
+}
+
+p{
+    padding-bottom: 10px ;
+}
+
+.flex{
+    display: flex;
+}
+
+.draw{
+    width: 400px;
+    margin-left: auto;
+    left: 100px;
+}

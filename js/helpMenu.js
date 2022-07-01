@@ -1,5 +1,6 @@
 const helpContainer = document.querySelector('[data-help-container]');
 const helpMenu = document.querySelector('[data-help-menu]');
+const doc = document.querySelector('[data-doc]');
 
 
 helpContainer.addEventListener('click', e => {
@@ -7,12 +8,6 @@ helpContainer.addEventListener('click', e => {
     listsBlocker.classList.add('active');
 })
 
-// Array.from(helpMenu.children).forEach(item => {
-//     item.addEventListener('click', e => {
-//     })
-// });
-
-// helpMenu.addEventListener('click', e => {
-//     closeDropDownMenus(listsBlocker)
-//     saveAndRender();
-// })
+doc.onclick = () => {
+    window.location.href = './doc/doc.html';
+}
